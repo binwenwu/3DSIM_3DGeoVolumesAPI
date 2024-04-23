@@ -18,7 +18,7 @@
     "OGC",
     "HFT"
   ],
-  "author": "thunyathep.s@outlook.com",
+  "author": "binwenwu@.whu.edu.cn",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.20.0",
