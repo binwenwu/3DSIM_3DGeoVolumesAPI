@@ -1,0 +1,1 @@
+Note: The 3D contents in Stuttgart collections are hosted on another server. In this case, the HREF link is described in the `collections.json` file 

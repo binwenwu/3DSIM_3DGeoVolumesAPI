@@ -1,0 +1,24 @@
+{
+    "title": "3D GeoVolumes API Server",
+    "description": "The 3D GeoVolumes API Server by tankenqi from WHU",
+    "links": [
+      {
+        "type": "application/openapi+json;version=3.0",
+        "title": "Service Description",
+        "href": "https://app.swaggerhub.com/apis/Thunyathep/OGC_GeoVolumes_API/0.0.1",
+        "rel": "service-desc"
+      },
+      {
+        "type": "application/json",
+        "title": "Conformance",
+        "href": "host_url/conformance/",
+        "rel": "conformance"
+      },
+      {
+        "type": "application/json",
+        "title": "Collections",
+        "href": "host_url/collections/",
+        "rel": "data"
+      }
+    ]
+  }

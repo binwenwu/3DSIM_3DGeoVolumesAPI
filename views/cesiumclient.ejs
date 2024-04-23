@@ -1,0 +1,70 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.83/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.83/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <!-- <script src="https://cesium.com/downloads/cesiumjs/releases/1.68/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.68/Build/Cesium/Widgets/widgets.css" rel="stylesheet"> -->
+</head>
+
+<body>
+    <div id="cesiumContainer" style="width: 100%; height:100%; margin:0;"></div>
+    <script>
+        // Cesium.Ion.defaultAccessToken = '';
+        var urlParams = new URLSearchParams(window.location.search);
+        var url_3dtiles_json = "";
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            // terrainProvider: Cesium.createWorldTerrain(),
+            baseLayerPicker: false,
+            vrButton: false,
+            geocoder: false,
+            navigationHelpButton: false,
+            selectionIndicator: false,
+            shadows: true,
+            timeline: true,
+            sceneModePicker: false,
+            imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+                url: 'https://a.tile.openstreetmap.org/'
+            })
+        });
+        if (urlParams.has('url_3dtiles_json')) {
+            url_3dtiles_json = urlParams.get('url_3dtiles_json');
+            console.log(`loading: ${url_3dtiles_json}`)
+            var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+                url: url_3dtiles_json
+            }))
+            Cesium.when(tileset.readyPromise).then(function (tileset) {
+                viewer.flyTo(tileset)
+
+                // When the translation is needed...
+
+
+                // var cartographic = Cesium.Cartographic.fromCartesian(
+                //     tileset.boundingSphere.center
+                // );
+                // var surface = Cesium.Cartesian3.fromRadians(
+                //     cartographic.longitude,
+                //     cartographic.latitude,
+                //     0.0
+                // );
+                // var offset = Cesium.Cartesian3.fromRadians(
+                //     cartographic.longitude,
+                //     cartographic.latitude,
+                //     50
+                // );
+                // var translation = Cesium.Cartesian3.subtract(
+                //     offset,
+                //     surface,
+                //     new Cesium.Cartesian3()
+                // );
+                // tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
+            })
+        } else {
+            // ...
+            
+        }
+    </script>
+</body>
+
+</html>

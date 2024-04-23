@@ -1,0 +1,31 @@
+{
+  "name": "3dgeovolumesapi",
+  "version": "1.0.0",
+  "description": "The open source 3D GeoVolumes API developed at HFT Stuttgart",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://transfer.hft-stuttgart.de/gitlab/ogc/3dgeovolumesapi"
+  },
+  "keywords": [
+    "3D",
+    "GeoVolumes",
+    "API",
+    "OGC",
+    "HFT"
+  ],
+  "author": "thunyathep.s@outlook.com",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "box-intersect": "^1.0.2",
+    "compression": "^1.7.4",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "useragent": "^2.3.0"
+  }
+}

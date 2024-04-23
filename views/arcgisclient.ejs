@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>i3s client</title>
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #paneDiv {
+            padding: 10px;
+            max-width: 200px;
+            background-color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1em;
+        }
+    </style>
+    <link rel="icon" type="image/ico" href="img/favicon.ico" sizes="16x16">
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.14/"></script>
+
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var i3s_url = "";
+
+        require([
+            "esri/Map",
+            "esri/views/SceneView",
+            "esri/layers/SceneLayer",
+            "esri/support/actions/ActionButton"
+        ], function (Map, SceneView, SceneLayer, ActionButton) {
+            // Create Map
+            var map = new Map({
+                basemap: "dark-gray",
+                ground: "world-elevation"
+            });
+
+            // Create the SceneView
+            var view = new SceneView({
+                container: "viewDiv",
+                map: map,
+                camera: {
+                    position: [-74.0338, 40.6913, 707],
+                    tilt: 81,
+                    heading: 50
+                }
+            });
+
+            // Create SceneLayer and add to the map
+            var sceneLayer;
+            if (urlParams.has('i3s_resource_url')) {
+                i3s_url = urlParams.get('i3s_resource_url');
+                console.log(`loading: ${i3s_url}`)
+                sceneLayer = new SceneLayer({
+                    url: i3s_url,
+                    popupEnabled: true
+                });
+                map.add(sceneLayer);
+                sceneLayer.when(function () {
+                    view.goTo(sceneLayer.fullExtent);
+                });
+            } else {
+                // ...
+            }
+            map.add(sceneLayer);
+            // Create MeshSymbol3D for symbolizing SceneLayer
+            var symbol = {
+                type: "mesh-3d", // autocasts as new MeshSymbol3D()
+                symbolLayers: [{
+                    type: "fill", // autocasts as new FillSymbol3DLayer()
+                    // If the value of material is not assigned, the default color will be grey
+                    // material: {
+                    //   color: [244, 247, 134]
+                    // }
+                }]
+            };
+            // Add the renderer to sceneLayer
+            sceneLayer.renderer = {
+                type: "simple", // autocasts as new SimpleRenderer()
+                symbol: symbol
+            };
+            view.ui.add("paneDiv", "top-right");
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <div id="paneDiv" class="esri-widget">
+        <h1 style="line-height: 1em;">i3s client</h1>
+        <a class="esri-button" href="../" style="text-decoration: none; ">Back</a>
+    </div>
+</body>
+
+</html>

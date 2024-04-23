@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>GeoVolumes Server</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <h3>
+                        <img src="https://cdn.jsdelivr.net/gh/binwenwu/picgo_demo/img/remote%20sensing.jpg" alt="" width="50px">                 
+                        Demo GeoVolumes Server
+                    </h3>
+                </a>
+            </div>
+        </nav>
+        <!-- <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                
+            </a>
+        </header> -->
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';" class="fs-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../">Home</a></li>
+                <li class="breadcrumb-item"><a href="../">3DGeoVolumes</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Collections</li>
+            </ol>
+        </nav>
+        See this response in raw <code>JSON</code> format: <a href="?f=json">json</a> <br>
+
+        <!-- <input class="form-control mb-3 mt-3" id="searchBar" type="text" placeholder="Search Collections..."> -->
+        <hr>
+        <div id="collections_div">
+            <% for(var i=0; i < collection_resource_updated_bbox["collections"].length; i++) { %>
+            <div class="collections_contents">
+                <h5><%= collection_resource_updated_bbox["collections"][i].title %></h5> <br>
+                <b>ID</b>: <%= collection_resource_updated_bbox["collections"][i].id %> <br>
+                <b>Description</b>: <%= collection_resource_updated_bbox["collections"][i].description %> <br>
+                <b>Bbox</b>:
+                <%= JSON.stringify(collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0])  %>
+                <!-- BBOX 2D -->
+                <!-- <%= JSON.stringify(
+                    collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][0],
+                    collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][1],
+                    collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][3],
+                    collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][4],
+                    )  %> -->
+                <br><br>
+                <img src="https://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/export?bbox=<%= collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][0] %>%2C<%=collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][1]%>%2C<%=collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][3]%>%2C<%=collection_resource_updated_bbox["collections"][i].extent.spatial.bbox[0][4]%>&bboxSR=4326&layers=&layerDefs=&size=240%2C240&imageSR=&format=png&transparent=true&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&rotation=&datumTransformations=&layerParameterValues=&mapRangeValues=&layerRangeValues=&f=image" alt="">
+                
+        
+                <br>
+                <b>Links</b>: <br>
+                <% for(var j=0; j < collection_resource_updated_bbox["collections"][i].links.length; j++) { %>
+                    <% if (collection_resource_updated_bbox["collections"][i].links[j]["title"]) { %>
+                    <a href="<%= collection_resource_updated_bbox["collections"][i].links[j]["href"]%>" target="_blank"><%= collection_resource_updated_bbox["collections"][i].links[j]["title"]%></a> 
+                    <% if (collection_resource_updated_bbox["collections"][i].links[j]["title"].includes("i3s") ) { %>
+                        <a href="../i3s/?i3s_resource_url=<%= collection_resource_updated_bbox["collections"][i].links[j]["href"]%>" target="_blank"><span class="badge bg-primary">i3s client (ArcGIS JS) <i class="bi bi-box-arrow-up-right"></i></span>  
+                        </a> 
+                    <% } %>
+                    <% if (collection_resource_updated_bbox["collections"][i].links[j]["title"].includes("3D Tiles") ) { %>
+                        <a href="../3dtiles/?url_3dtiles_json=<%= collection_resource_updated_bbox["collections"][i].links[j]["href"]%>" target="_blank"><span class="badge bg-warning text-dark">3D Tiles client (CesiumJS) <i class="bi bi-box-arrow-up-right"></i></span>  
+                        </a> 
+                    <% } %>
+                    <% if (collection_resource_updated_bbox["collections"][i].links[j]["title"].includes("gltf") ) { %>
+                        <a href="https://gltf-viewer.donmccurdy.com/#model=<%= collection_resource_updated_bbox["collections"][i].links[j]["href"]%>" target="_blank"><span class="badge bg-success">GLTF viewer (donmccurdy) <i class="bi bi-box-arrow-up-right"></i></span>  
+                        </a> 
+                    <% } %>
+                    <br>
+                    <% } %>
+                <% } %>
+                <b>Children:</b> 
+                <%if (collection_resource_updated_bbox["collections"][i].children.length == 0) { %>
+                    -
+                <% } %>
+                <br>
+                <% for(var j=0; j < collection_resource_updated_bbox["collections"][i].children.length; j++) { %>
+                    <div class="card">
+                        <div class="card-body">
+                            <h6><%= collection_resource_updated_bbox["collections"][i].children[j].title %></h6>
+                            <b>ID:</b> <%= collection_resource_updated_bbox["collections"][i].children[j].id %> <br>
+                            <b>Description:</b> <%= collection_resource_updated_bbox["collections"][i].children[j].description %> <br>
+                            <b>Bbox:</b> <%= JSON.stringify(collection_resource_updated_bbox["collections"][i].children[j].extent.spatial.bbox[0])  %> <br>
+                            <br>
+                            <img src="https://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/export?bbox=<%= collection_resource_updated_bbox["collections"][i].children[j].extent.spatial.bbox[0][0] %>%2C<%=collection_resource_updated_bbox["collections"][i].children[j].extent.spatial.bbox[0][1]%>%2C<%=collection_resource_updated_bbox["collections"][i].children[j].extent.spatial.bbox[0][3]%>%2C<%=collection_resource_updated_bbox["collections"][i].children[j].extent.spatial.bbox[0][4]%>&bboxSR=4326&layers=&layerDefs=&size=240%2C240&imageSR=&format=png&transparent=true&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&rotation=&datumTransformations=&layerParameterValues=&mapRangeValues=&layerRangeValues=&f=image" alt="">
+                    
+                            <br>
+                            <b>Links:</b> <br>
+                            <% for(var k=0; k < collection_resource_updated_bbox["collections"][i].children[j].links.length; k++) { %>
+                                <% if (collection_resource_updated_bbox["collections"][i].children[j].links[k]["title"]) { %>
+                                <a href="<%= collection_resource_updated_bbox["collections"][i].children[j].links[k]["href"]%>" target="_blank">
+                                    <%= collection_resource_updated_bbox["collections"][i].children[j].links[k]["title"]%></a> 
+                                <% if (collection_resource_updated_bbox["collections"][i].children[j].links[k]["title"].includes("i3s") ) { %>
+                                    <a href="../i3s/?i3s_resource_url=<%= collection_resource_updated_bbox["collections"][i].children[j].links[k]["href"]%>" target="_blank"><span class="badge bg-primary">i3s client (ArcGIS JS) <i class="bi bi-box-arrow-up-right"></i></span>  
+                                    </a> 
+                                <% } %>
+                                <% if (collection_resource_updated_bbox["collections"][i].children[j].links[k]["title"].includes("3D Tiles") ) { %>
+                                    <a href="../3dtiles/?url_3dtiles_json=<%= collection_resource_updated_bbox["collections"][i].children[j].links[k]["href"]%>" target="_blank"><span class="badge bg-warning text-dark">3D Tiles client (CesiumJS) <i class="bi bi-box-arrow-up-right"></i></span>  
+                                    </a> 
+                                <% } %>
+                                <% if (collection_resource_updated_bbox["collections"][i].children[j].links[k]["title"].includes("gltf") ) { %>
+                                    <a href="https://gltf-viewer.donmccurdy.com/#model=<%= collection_resource_updated_bbox["collections"][i].children[j].links[k]["href"]%>" target="_blank"><span class="badge bg-success">GLTF viewer (donmccurdy) <i class="bi bi-box-arrow-up-right"></i></span>  
+                                    </a> 
+                                <% } %>
+                                <br>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                
+                <hr>
+                <% } %>
+            </div>
+        <%- include('footer.ejs') %> 
+
+        </div>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

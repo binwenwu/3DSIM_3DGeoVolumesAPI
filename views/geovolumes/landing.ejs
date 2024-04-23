@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>GeoVolumes Server</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- <h1>
+            <img src="https://transfer.hft-stuttgart.de/pages/buildicipate/webpage/assets/images/hft_logo.svg" alt=""
+                width="50px">
+            <img src="https://cdn.jsdelivr.net/gh/binwenwu/picgo_demo/img/remote%20sensing.jpg" alt="" width="50px">
+            STT GeoVolumes Server
+        </h1> -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+
+
+                    <h3>
+                        <img src="https://cdn.jsdelivr.net/gh/binwenwu/picgo_demo/img/remote%20sensing.jpg" alt="" width="50px">
+                        <img src="https://avatars.githubusercontent.com/u/97048872?v=4"
+                            alt="" width="50px">
+                        WHU GeoVolumes Server
+                    </h3>
+                </a>
+            </div>
+        </nav>
+        <!-- <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                
+            </a>
+        </header> -->
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';" class="fs-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../">Home</a></li>
+                <li class="breadcrumb-item" aria-current="page">3DGeoVolumes</li>
+                <li class="breadcrumb-item active"><a href="/collections"></a>Collections</li>
+            </ol>
+        </nav>
+        See this response in raw <code>JSON</code> format: <a href="?f=json">json</a> <br>
+
+        <hr>
+        <div id="collections_div">
+            <h3> <%= landingpage_output["title"] %> </h3>
+            <span class="mb-4"> <%= landingpage_output["description"] %> </span>  <br>
+            <b>Links</b>: <br>
+                
+                <div class="collections_contents"></div>
+            <% for(var i=0; i < landingpage_output["links"].length; i++) { %>
+                    <a href="<%= landingpage_output["links"][i]["href"]%>" target="_blank">
+                    <%= landingpage_output["links"][i]["title"]%> </a>
+                    <br>
+            <% } %>
+            </div>
+            <hr>
+        <%- include('footer.ejs') %> 
+            
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    </script>
+
+</body>
+
+</html>
