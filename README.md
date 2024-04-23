@@ -1,6 +1,9 @@
 # 3DGeoVolumesAPI
 
-### Live Demo: https://steinbeis-3dps.eu/3DGeoVolumes/
+### Live Demo: http://10.101.240.60:3004/
+> note: Please use the website of the School of Remote Sensing Information Engineering, Wuhan University to access it
+
+
 ![Steinbeis GeoVolumes API](./img/ResourceArchitecture2.jpg)
 
 ## Installation
