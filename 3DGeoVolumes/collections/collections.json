@@ -53,8 +53,20 @@
           "type": "application/json+3dtiles"
         }
       ],
-      "children": [
-        
+      "children": [],
+      "content": [
+        {
+          "title": "Wuhan University Oblique photogrammetry panorama : 3D Tiles",
+          "rel": "original",
+          "href": "host_url/collections/WHU/3dtiles/",
+          "type": "application/json+3dtiles"
+        },
+        {
+          "title": "Wuhan University Architectural white film : 3D Tiles",
+          "rel": "original",
+          "href": "host_url/collections/WHU_WhitFilm/3dtiles/",
+          "type": "application/json+3dtiles"
+        }
       ]
     },
     {

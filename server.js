@@ -21,7 +21,7 @@
     }));
     app.use(express.static(__dirname));
 
-    const geovolumes_server_url = `http://10.101.240.60:${port}`
+    const geovolumes_server_url = `http://localhost:${port}`
     // const geovolumes_server_url = "https://steinbeis-3dps.eu/3DGeoVolumes"
     // GeoVolume - A function to replace the geovolumes_server_url
     var replace_server_url = function (const_json) {
